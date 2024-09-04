@@ -1,0 +1,7 @@
+@EndUserText.label: 'manage po SD'
+define service ZmanagePO_SD_mr1 {
+  expose ZC_PURCHASEHEADERTP_mr1;
+  expose ZC_PURCHASEITEMSTP_MR1;
+  expose ZC_SUPPLIER_MR1;
+  expose ZC_PO_Attachment_mr1;
+}

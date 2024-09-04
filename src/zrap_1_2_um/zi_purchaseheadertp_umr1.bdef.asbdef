@@ -1,0 +1,58 @@
+unmanaged implementation in class zbp_i_purchaseheadertp_umr1 unique;
+strict ( 2 );
+
+define behavior for ZI_PURCHASEHEADERTP_UMR1 alias POHeaders
+//late numbering
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+//  field ( readonly ) PurchaseOrderno;
+  association _POItems { create; }
+  mapping for zpoheader_db_mr1
+    {
+      PurchaseOrderno    = po_order;
+      Description        = po_desc;
+      Ordertype          = po_type;
+      CompanyCode        = comp_code;
+      Organisation       = po_org;
+      OrderStat          = po_status;
+      Supplier           = supplier;
+      Imageurl           = imageurl;
+      CreatedBy          = created_by;
+      CreatedDateTime    = created_date_time;
+      ChangedDateTime    = changed_date_time;
+      LocalLastChangedBy = local_last_changed_by;
+    }
+}
+
+define behavior for ZI_PURCHASEITEMSTP_UMR1 alias poitems
+//late numbering
+lock dependent by _PurchaseHeader
+authorization dependent by _PurchaseHeader
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) PurchaseOrderno, PurchaseItem;
+  association _PurchaseHeader;
+
+   mapping for zpoitems_db_mr1
+    {
+      PurchaseOrderno    = po_order;
+      PurchaseItem       = po_item;
+      ShortText          = short_text;
+      Material           = material;
+      Plant              = plant;
+      MatGroup           = mat_group;
+      OrderQunt          = order_qunt;
+      OrderUnit          = order_unit;
+      ProductPrice       = product_price;
+      PriceUnit          = price_unit;
+      LocalLastChangedBy = local_last_changed_by;
+    }
+
+}

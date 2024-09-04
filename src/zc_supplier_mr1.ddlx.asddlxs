@@ -1,0 +1,20 @@
+@Metadata.layer: #CUSTOMER
+annotate entity ZC_SUPPLIER_MR1
+    with 
+{
+@UI.identification: [{ position: 10, label: 'supplier' }]
+   Supplierid;
+   @UI.identification: [{ position: 20, label: 'suppliername' }]
+   SupplierName;
+   @UI.identification: [{ position: 30, label: 'email' }]
+   EmailAddress;
+   @UI.identification: [{ position: 40, label: 'ph no' }]
+   PhoneNumber;
+   @UI.identification: [{ position: 50, label: 'fax no' }]
+   FaxNumber;
+   @UI.identification: [{ position: 60, label: 'company code' }]
+   companyCodeSupplier;
+   @UI.identification: [{ position: 70, label: 'web add' }]
+   WebAddress;
+    
+}

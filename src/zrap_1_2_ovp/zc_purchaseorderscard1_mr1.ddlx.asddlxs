@@ -1,0 +1,54 @@
+@Metadata.layer: #CORE
+@UI.chart: [{
+    qualifier: 'PurchaseDocPriority',
+    title: 'Purchase Order Priority',
+    description: '',
+    chartType: #DONUT,
+    dimensions: [ 'priority', 'PriorityText' ],
+    measures: [ 'sumOfDocuments' ],
+    dimensionAttributes: [    { dimension: 'priority',
+                                role: #CATEGORY },
+                              { dimension: 'PriorityText',
+                                role: #CATEGORY     }
+                          ],
+        
+    measureAttributes: [{ measure: 'sumOfDocuments', role: #AXIS_1 }]    
+},
+{ 
+qualifier: 'PurchaseDocStatus',
+    title: 'Purchase Order Status',
+    description: '',
+    chartType: #DONUT,
+    dimensions: [ 'OrderStat', 'StatusText' ],
+    measures: [ 'sumOfDocuments' ],
+    dimensionAttributes: [    { dimension: 'OrderStat',
+                                role: #CATEGORY },
+                              { dimension: 'StatusText',
+                                role: #CATEGORY     }
+                          ],
+        
+    measureAttributes: [{ measure: 'sumOfDocuments', role: #AXIS_1 }]  
+}
+]
+@UI.presentationVariant: [{ groupBy: [ 'PurchaseOrderno' ], qualifier: 'myKPI', 
+visualizations: [{ element: 'sumOfDocuments' }] }]
+annotate entity ZC_PurchaseOrdersCard1_mr1
+    with 
+{
+@UI.identification: [{ position: 10, label: 'Purchase Documents' }]
+   PurchaseOrderno;
+  // Description;
+  
+   @UI.textArrangement: #TEXT_ONLY
+   priority;
+//   PriorityText;
+
+@UI.textArrangement: #TEXT_ONLY
+   OrderStat;
+//   StatusText;
+
+@UI.dataPoint.visualization: #NUMBER
+@UI.kpi: [{ detail: { defaultPresentationVariantQualifier: 'myKPI' } }]
+   sumOfDocuments;
+    
+}

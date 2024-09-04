@@ -1,0 +1,67 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+typeName: 'Purchase Order',
+typeNamePlural: 'Purchase Orders no',
+title: { value: 'PurchaseOrderno' },
+description: {
+label: 'Managered Purchase Orders items',
+type: #STANDARD,
+value : 'PurchaseItem'
+}
+}
+annotate entity ZC_PURCHASEITEMSTP_MR1
+    with 
+{
+@UI.facet: [{
+    id: 'Itemdetails',
+    purpose: #STANDARD,
+    parentId: '',
+    position: 10,
+    label: 'Items  details',
+    type: #FIELDGROUP_REFERENCE,
+    targetQualifier: 'Itemdetail'
+}]
+
+@UI.lineItem: [{ position: 10, label: 'po number' }]
+ @UI.fieldGroup: [{ position: 10, label: 'Purchase order', qualifier: 'Itemdetail' }]
+    PurchaseOrderno;
+    @UI.lineItem: [{ position: 20, label: 'po item' }]
+    @UI.fieldGroup: [{ position: 20, label: 'Purchase Item', qualifier: 'Itemdetail' }]
+    PurchaseItem;
+//    @UI.lineItem: [{ position: 30, label: 'shot text' }]
+//    ShortText;
+    @UI.lineItem: [{ position: 40, label: 'material' }]
+    @UI.fieldGroup: [{ position: 30, label: 'Material', qualifier: 'Itemdetail' }]
+    Material;
+    @UI.lineItem: [{ position: 50, label: 'plant' }]
+    @UI.fieldGroup: [{ position: 40, label: 'Plant', qualifier: 'Itemdetail' }]
+    Plant;
+    @UI.lineItem: [{ position: 60, label: 'mat grp' }]
+    @UI.fieldGroup: [{ position: 50, label: 'Material group', qualifier: 'Itemdetail' }]
+    MatGroup;
+    @UI.lineItem: [{ position: 70, label: 'ord qty' }]
+    @UI.fieldGroup: [{ position: 60, label: 'order Quantity', qualifier: 'Itemdetail' }]
+    OrderQunt;
+//    @UI.lineItem: [{ position: 80, label: 'Ord unit' }]
+//    OrderUnit;
+    @UI.lineItem: [{ position: 90, label: 'prod Price' }]
+    @UI.fieldGroup: [{ position: 70, label: 'Product price', qualifier: 'Itemdetail' }]
+    ProductPrice;
+//    @UI.lineItem: [{ position: 100, label: 'unit' }]
+//    PriceUnit;
+    @UI.lineItem: [{ position: 110, label: 'item Price' }]
+    @UI.fieldGroup: [{ position: 80, label: 'item price', qualifier: 'Itemdetail' }]
+    ItemPrice;
+    @UI.lineItem: [{ position: 120, label: 'Change by' }]
+    @UI.fieldGroup: [{ position: 90, label: 'Change By', qualifier: 'Itemdetail' }]
+    LocalLastChangedBy;
+    /* Associations */
+//    _Currency;
+//    _PurchaseOrder;
+    
+    /* Associations */
+//    _Currency;
+//    _PurchaseHeader;
+//    _PurchaseOrder;
+//    
+}

@@ -1,0 +1,156 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+typeName: 'Purchase Order',
+typeNamePlural: 'Purchase Orders',
+title: { value: 'Description' },
+imageUrl: 'Imageurl',
+description: {
+label: 'Managered Purchase Orders',
+type: #STANDARD,
+value : 'Ordertype'
+}
+}
+annotate entity ZC_PURCHASEHEADERTP_umr1
+    with 
+{
+//@UI.lineItem: [{ position: 10, label: 'Purchase Order No.', importance: #HIGH }]
+//  Description;
+//
+//@UI.lineItem: [{ position: 20, label: 'Purchase Order No.', importance: #HIGH }]
+//  PurchaseOrderno;
+
+     
+@UI.facet: [
+{
+    id: 'header1',
+    position: 10,
+    purpose: #STANDARD,
+    targetQualifier: 'creationDate',
+    type: #DATAPOINT_REFERENCE
+},
+{
+    id: 'header2',
+    position: 20,
+    purpose: #STANDARD,
+    targetQualifier: 'status',
+    type: #DATAPOINT_REFERENCE
+},
+{
+    id: 'header3',
+    position: 30,
+    purpose: #STANDARD,
+    targetQualifier: 'total',
+    type: #DATAPOINT_REFERENCE
+},
+{
+    id: 'Collection',
+    purpose: #STANDARD,
+    label: 'General Information',
+    type: #COLLECTION
+},
+{
+id:'BasicInfo',
+purpose: #STANDARD,
+parentId: 'Collection',
+position: 10,
+targetQualifier: 'BasicGroup',
+type: #FIELDGROUP_REFERENCE,
+label: 'Basic Data'
+},
+{
+id:'OrgInfo',
+purpose: #STANDARD,
+parentId: 'Collection',
+position: 20,
+targetQualifier: 'OrgGroup',
+type: #FIELDGROUP_REFERENCE,
+label: 'Org Data'
+},
+{
+id:'ItemInfo',
+purpose: #STANDARD,
+type: #LINEITEM_REFERENCE,
+position: 20,
+targetElement: '_POItems',
+label: 'Purchase Items'
+},
+{
+id:'SupplierInfo',
+purpose: #STANDARD,
+type: #IDENTIFICATION_REFERENCE,
+position: 30,
+targetElement: '_Supplier',
+label: 'Supplier'
+}
+//{
+//id:'AttachmentInfo',
+//purpose: #STANDARD,
+//type: #LINEITEM_REFERENCE,
+//position: 40,
+//targetElement: '_POAttachment',
+//label: 'Attachment'
+//}
+]
+
+ @UI.lineItem: [{ position: 10, label: 'Purchase Order No.', importance: #HIGH }
+//                { dataAction: 'CopyPO', label: 'Copy', type: #FOR_ACTION, position: 10 },
+//                { dataAction: 'withdrawPOApproval', label: 'WithdraApproval', type:#FOR_ACTION, position: 20 }
+                ]
+  @UI.selectionField: [{ position: 10 }]
+  @UI.fieldGroup: [{ position: 10, label: 'Purchase order', qualifier: 'BasicGroup' }]
+  PurchaseOrderno;
+
+@UI.fieldGroup: [{ position: 11, label: 'Description', qualifier: 'BasicGroup' }]
+  Description;
+  
+  @UI.fieldGroup: [{ position: 30, label: 'Total Price', qualifier: 'BasicGroup' }]
+  @UI.dataPoint: { qualifier: 'total', title: 'Net Vaalue' }
+    PurchaseTotalPrice;
+
+
+  @UI.fieldGroup: [{ position: 20, label: 'Unit', qualifier: 'BasicGroup' }]
+   PriceUnit;
+
+//  @UI.lineItem: [{ position: 20, label: 'Order Type', importance: #HIGH }]
+  @UI.selectionField: [{ position: 20 }]
+  @UI.fieldGroup: [{ position: 40, label: 'order type', qualifier: 'BasicGroup' }]
+  Ordertype;
+
+  @UI.lineItem: [{ position: 30, label: 'Company Code', importance: #HIGH }]
+ @UI.fieldGroup: [{ position: 20, label: 'Company Code', qualifier: 'OrgGroup' }]
+  CompanyCode;
+
+  @UI.lineItem: [{ position: 70, label: 'Organisation', importance: #HIGH }]
+   @UI.fieldGroup: [{ position: 10, label: 'Organisation', qualifier: 'OrgGroup' }]
+  Organisation;
+
+  @UI.lineItem: [{ position: 80, label: 'Supplier', importance: #HIGH,
+  type: #AS_CONTACT, value: '_Supplier'
+  }]
+  @UI.selectionField: [{ position: 30 }]
+  @UI.fieldGroup: [{ position: 60, label: 'Supplier', qualifier: 'BasicGroup' }]
+  Supplier;
+
+//  @UI.lineItem: [{ position: 90, label: 'ImageURL' }]
+//    _Supplier.;
+
+  @UI.lineItem: [{ position: 100, label: 'Created By', importance: #HIGH }]
+  CreatedBy;
+
+  @UI.lineItem: [{ position: 50,
+  criticality: 'criticalValue' 
+  }]
+   @UI.selectionField: [{ position: 40 }]
+   @UI.dataPoint: { qualifier: 'status', criticality: 'criticalValue', title: 'Status' }
+    @UI.fieldGroup: [{ position: 50, label: 'order Status', qualifier: 'BasicGroup' }]
+  OrderStat;
+
+@UI.dataPoint: {
+    qualifier: 'creationDate',
+    hidden: true,
+    title: 'Purchase Order Date'
+
+}
+    CreatedDateTime;
+    
+}

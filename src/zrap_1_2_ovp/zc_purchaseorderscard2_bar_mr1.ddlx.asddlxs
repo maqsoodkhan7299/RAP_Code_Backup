@@ -1,0 +1,31 @@
+@Metadata.layer: #CORE
+annotate entity ZC_PURCHASEORDERSCARD2_Bar_MR1
+    with 
+{
+    @UI.lineItem: [{ position: 10, label: 'Purchase Order' }]
+    PurchaseOrderno;
+    
+    @UI.lineItem: [{ position: 20, label: 'Created By' }]
+    @UI.dataPoint: { title: 'Created On' }
+    CreatedBy;
+    
+    @UI.lineItem: [{ position: 30, label: 'Created On' }]
+    CreatedDateTime;
+    
+    @UI: { 
+    dataPoint: { 
+    title: 'Overall Budget',
+    valueFormat.numberOfFractionalDigits: 2,
+    minimumValue: 0,
+    maximumValue: 100,
+    criticalityCalculation: { 
+    improvementDirection: #MINIMIZE,
+    toleranceRangeHighValue: 80,
+    deviationRangeHighValue: 100 }
+    }
+    }
+    
+    @UI.lineItem: [{ position: 40, label: 'Budget', type: #AS_DATAPOINT  }]
+    BudgetUsage;
+    
+}

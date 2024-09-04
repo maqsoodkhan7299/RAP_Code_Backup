@@ -1,0 +1,6 @@
+@EndUserText.label: 'SD PO OVP'
+define service ZSD_PurchaseOVP {
+  expose ZC_Purchase_OVP_Filter_mr1     as PssurchaseFilter;
+  expose ZC_PurchaseOrdersCard1_mr1;
+  expose ZC_PURCHASEORDERSCARD2_Bar_MR1;
+}

@@ -1,0 +1,107 @@
+managed implementation in class zbp_i_purchaseheadertp_mr1 unique;
+strict ( 2 );
+with draft;
+define behavior for ZI_PURCHASEHEADERTP_MR1 alias poheader
+persistent table zpoheader_db_mr1
+draft table zpoheader_dt_mr1
+early numbering
+lock master
+total etag last_change_at
+authorization master ( instance )
+etag master ChangedDateTime
+{
+  create;
+  update;
+  delete;
+  field ( readonly ) PurchaseOrderno;
+  field ( mandatory ) Description;
+  action Copy result [1] $self;
+  action Withdraw result [1] $self;
+
+  validation validateStatus on save { create; field OrderStat; }
+  association _POItems { create; with draft; }
+  association _POAttachment { create; with draft; }
+
+  draft action Edit;
+  draft action Resume;
+  draft action Discard;
+  draft action Activate;
+  draft determine action Prepare
+  {
+    validation validateStatus;
+  }
+
+  mapping for zpoheader_db_mr1
+    {
+      PurchaseOrderno    = po_order;
+      Description        = po_desc;
+      Ordertype          = po_type;
+      CompanyCode        = comp_code;
+      Organisation       = po_org;
+      OrderStat          = po_status;
+      Supplier           = supplier;
+      Imageurl           = imageurl;
+      CreatedBy          = created_by;
+      CreatedDateTime    = created_date_time;
+      ChangedDateTime    = changed_date_time;
+      LocalLastChangedBy = local_last_changed_by;
+    }
+}
+
+define behavior for ZI_PURCHASEITEMSTP_MR1 alias poitem
+implementation in class zbp_i_purchaseItemstp_mr1 unique
+persistent table zpoitems_db_mr1
+draft table zpoitems_dt_mr1
+early numbering
+lock dependent by _PurchaseHeader
+authorization dependent by _PurchaseHeader
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) PurchaseOrderno, PurchaseItem;
+  association _PurchaseHeader { with draft; }
+  determination calculateTotalPrice on save { create; field ProductPrice, PriceUnit, OrderQunt, OrderUnit; }
+  mapping for zpoitems_db_mr1
+    {
+      PurchaseOrderno    = po_order;
+      PurchaseItem       = po_item;
+      ShortText          = short_text;
+      Material           = material;
+      Plant              = plant;
+      MatGroup           = mat_group;
+      OrderQunt          = order_qunt;
+      OrderUnit          = order_unit;
+      ProductPrice       = product_price;
+      PriceUnit          = price_unit;
+      LocalLastChangedBy = local_last_changed_by;
+    }
+
+}
+
+
+define behavior for ZI_PO_attachment_mr1 alias poattachment
+implementation in class zbp_i_poattachment_mr1 unique
+persistent table zpo_attachment
+draft table zpo_attach_dt
+early numbering
+lock dependent by _Header
+authorization dependent by _Header
+//etag master LastChangeAt
+{
+  update;
+  delete;
+  field ( readonly ) Purchaseordernumber, AttachId;
+  association _Header { with draft; }
+  //  determination calculateTotalPrice on save { create; field ProductPrice,PriceUnit,OrderQunt,OrderUnit; }
+  mapping for zpo_attachment
+    {
+      Purchaseordernumber = purchaseordernumber;
+      AttachId            = attach_id;
+      Attachment          = attachment;
+      MimeType            = mimetype;
+      Filename            = filename;
+//      LastChangeAt        = last_change_at;
+    }
+
+}

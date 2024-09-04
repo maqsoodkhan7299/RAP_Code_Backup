@@ -1,0 +1,6 @@
+@EndUserText.label: 'PO header service definition'
+define service ZPurchaseOrders_SD_mr1 {
+  expose ZC_PurchaseHeaderDetails_mr1 as POHeader;
+  expose ZC_PURCHASEITEMS_mr1         as POItems;
+  expose ZC_SUPPLIER_MR1              as supplier;
+}

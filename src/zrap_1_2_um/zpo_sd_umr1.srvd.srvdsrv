@@ -1,0 +1,5 @@
+@EndUserText.label: 'unmanage po SD'
+define service ZPO_SD_umr1 {
+  expose ZC_PURCHASEHEADERTP_umr1;
+  expose ZC_PURCHASEITEMSTP_uMR1;
+}
